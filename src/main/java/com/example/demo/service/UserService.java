@@ -4,6 +4,8 @@ import com.example.demo.repository.User;
 import com.example.demo.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +28,7 @@ public class UserService {
         if (optionalUser.isPresent()) {
             throw new IllegalStateException("User with this email exists");
         }
+        user.setAge(Period.between(user.getBirth(), LocalDate.now()).getYears());
         return userRepository.save(user);
     }
 }

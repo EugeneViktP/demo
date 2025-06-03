@@ -1,3 +1,3 @@
 INSERT INTO users(name, email, birth, age)
 VALUES ('Sergey', 'mail@mail.ru', '1990-01-01', null),
-('Marina', 'mail@mail.ru', '1991-02-02', null);
+('Marina', 'mail2@mail.ru', '1991-02-02', null);

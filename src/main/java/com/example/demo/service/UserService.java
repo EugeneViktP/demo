@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.repository.User;
 import com.example.demo.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -40,6 +41,7 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
+    @Transactional
     public void update(Long id, String email, String name) {
         Optional<User> optionalUser = userRepository.findById(id);
         if (optionalUser.isEmpty()) {
@@ -56,7 +58,7 @@ public class UserService {
         if (name != null && !name.equals(user.getName())) {
             user.setName(name);
         }
-        userRepository.save(user);
+//        userRepository.save(user);
 
     }
 }

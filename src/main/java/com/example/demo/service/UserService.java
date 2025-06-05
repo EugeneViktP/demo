@@ -31,4 +31,32 @@ public class UserService {
         user.setAge(Period.between(user.getBirth(), LocalDate.now()).getYears());
         return userRepository.save(user);
     }
+
+    public void delete(Long id) {
+        Optional<User> optionalUser = userRepository.findById(id);
+        if (optionalUser.isEmpty()) {
+            throw new IllegalStateException("User with this Id does not exist");
+        }
+        userRepository.deleteById(id);
+    }
+
+    public void update(Long id, String email, String name) {
+        Optional<User> optionalUser = userRepository.findById(id);
+        if (optionalUser.isEmpty()) {
+            throw new IllegalStateException("User with this Id does not exist");
+        }
+        User user = optionalUser.get();
+        if (email != null && !email.equals(user.getEmail())) {
+            Optional<User> foundByMail  = userRepository.findByEmail(email);
+            if (foundByMail.isPresent()) {
+                throw new IllegalStateException("User with this email exists");
+            }
+            user.setEmail(email);
+        }
+        if (name != null && !name.equals(user.getName())) {
+            user.setName(name);
+        }
+        userRepository.save(user);
+
+    }
 }
